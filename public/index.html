@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>AdSpark Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="config.js"></script>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0c0a16;--card:rgba(255,255,255,.06);--line:rgba(255,255,255,.13);--tx:#f3f1fa;--mut:#a29db9;--a:#ff5c8a;--b:#ffb04d;--ok:#5fe3b0;--err:#ff7b7b}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;min-height:100%;background:var(--bg) radial-gradient(600px 420px at 88% -4%,rgba(255,92,138,.24),transparent) fixed;color:var(--tx);font:15px/1.55 Poppins,'Noto Sans Bengali',Inter,system-ui,sans-serif}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:#3a3550;border-radius:8px}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+header{flex-wrap:wrap;display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:16px}
+.logo{font-weight:700;font-size:20px;letter-spacing:-.02em}.logo i{font-style:normal;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.glass{background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:18px;padding:18px}
+button,input,textarea,select{font:inherit;color:inherit}
+.btn{border:1px solid var(--line);background:var(--card);padding:9px 16px;border-radius:12px;cursor:pointer;position:relative;overflow:hidden;transition:transform .15s,border-color .15s}
+.btn:hover{border-color:var(--a)}.btn:active{transform:scale(.97)}.btn:focus-visible,.chip:focus-visible{outline:2px solid var(--b);outline-offset:2px}
+.btn.p{background:linear-gradient(90deg,var(--a),var(--b));border:0;color:#1a0f18;font-weight:600;box-shadow:0 6px 24px rgba(255,92,138,.35)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden}.seg button{border:0;background:none;padding:7px 12px;cursor:pointer;color:var(--mut)}.seg button.on{background:var(--a);color:#1a0f18;font-weight:600}
+.steps{display:flex;gap:6px;margin-bottom:6px}.st{flex:1;font-size:11px;color:var(--mut);text-align:center;padding:6px 2px;border-radius:10px;border:1px solid transparent}
+.st.on{color:var(--tx);border-color:var(--a);background:rgba(255,92,138,.12)}.st.done{color:var(--ok)}
+.bar{height:4px;background:var(--line);border-radius:4px;margin-bottom:16px;overflow:hidden}.bar div{height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--b));transition:width .5s}
+h2{margin:0 0 4px;font-size:20px;letter-spacing:-.01em}p.s{margin:0 0 14px;color:var(--mut);font-size:13px}
+label{display:block;font-size:13px;color:var(--mut);margin:12px 0 5px}
+input,textarea,select{width:100%;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:12px;padding:10px 12px;transition:border-color .2s,box-shadow .2s}
+select option{background:#1b1730}input:focus,textarea:focus,select:focus{outline:0;border-color:var(--a);box-shadow:0 0 0 3px rgba(255,92,138,.22)}
+textarea{min-height:110px;resize:vertical}.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:520px){.g2{grid-template-columns:1fr}}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:none;padding:7px 14px;border-radius:999px;cursor:pointer;color:var(--mut)}.chip.on{border-color:var(--a);color:var(--tx);background:rgba(255,92,138,.16)}
+.pane{display:none}.pane.on{display:block;animation:in .35s}@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.hook{display:block;width:100%;text-align:left;margin-bottom:10px;cursor:pointer}.hook.on{border-color:var(--a);background:rgba(255,92,138,.12)}.hook small{display:block;color:var(--mut);margin-top:4px}
+.nav{display:flex;justify-content:space-between;margin-top:18px}
+.cost{margin-top:16px;border-color:rgba(255,176,77,.45)}.cost table{width:100%;font-size:13px;color:var(--mut);border-collapse:collapse}.cost td{padding:3px 0}.cost td:last-child{text-align:right;color:var(--tx)}
+.big{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0 2px;font-weight:700}.big span:first-child{font-size:28px}.big span.m{font-size:20px;color:var(--mut);align-self:flex-end}
+.sk{border-radius:16px;margin:0 auto;max-width:300px;background:linear-gradient(100deg,#1b1730 30%,#2c2548 50%,#1b1730 70%) 0 0/200% 100%;animation:sh 1.4s infinite linear}@keyframes sh{to{background-position:-200% 0}}
+.stat{text-align:center;margin:12px 0 0;color:var(--b)}.err{color:var(--err);background:rgba(255,107,107,.1);border:1px solid var(--err);border-radius:12px;padding:10px 12px;margin-top:12px}
+.demo{display:grid;place-items:center;text-align:center;border-radius:16px;margin:0 auto;max-width:300px;padding:20px;background:linear-gradient(135deg,var(--a),#6a3df0,var(--b));background-size:200% 200%;animation:gr 6s infinite alternate;color:#fff}@keyframes gr{to{background-position:100% 100%}}
+video{width:100%;max-width:340px;display:block;margin:0 auto;border-radius:16px}
+.modal{position:fixed;inset:0;background:rgba(5,4,12,.7);display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 16px) 12px 24px;z-index:9}.modal.on{display:flex}.modal .glass{background:#17132a;max-width:520px;width:100%}
+.log{font-size:12px;color:var(--mut);max-height:140px;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:8px}.log b.e{color:var(--err)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.tg{width:auto}
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%);background:#2a2442;border:1px solid var(--line);padding:9px 16px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:10;max-width:90%}#toast.on{opacity:1}
+.item{display:block;width:100%;text-align:left;margin-bottom:10px;cursor:pointer}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.g3 .glass{padding:12px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body><div class="wrap">
+<header><div class="logo">Ad<i>Spark</i> Pro</div><div class="row"><div class="seg" id="lng"><button data-l="en">EN</button><button data-l="bn">বাংলা</button></div><div class="seg" id="cur"><button data-c="USD">$ USD</button><button data-c="BDT">৳ BDT</button></div><span id="bal" class="btn" style="display:none"></span><a class="btn" id="adm" href="/admin.html" style="display:none">Admin</a><button class="btn" id="home" style="display:none">Dashboard</button><button class="btn" id="so" style="display:none">Sign out</button><button class="btn" id="setBtn" aria-label="Settings">Settings</button></div></header>
+<div id="login" class="glass" style="display:none;text-align:center;padding:36px 18px"><h2>Welcome to AdSpark Pro</h2><p class="s">Sign in to see your ads, costs and health scores.</p><button class="btn p" id="gin">Continue with Google</button><div style="max-width:260px;margin:14px auto 0"><input id="le" type="email" placeholder="Email" autocomplete="username"><input id="lp" type="password" placeholder="Password" autocomplete="current-password" style="margin-top:8px"><button class="btn p" id="ein" style="margin-top:8px">Sign in</button></div><div id="lerr" class="err" style="display:none"></div></div>
+<div id="dash" style="display:none"><div class="g3" id="cards"></div><div class="row" style="margin:18px 0 10px"><h2 style="margin:0">Your campaigns</h2><button class="btn p" id="newAd">New ad</button></div><div id="list"></div></div>
+<div id="wiz" style="display:none"><div class="steps" id="steps"></div><div class="bar"><div id="prog"></div></div>
+<div class="glass">
+<section class="pane" id="p0"><h2>Business and link</h2><p class="s">Paste your website or Facebook page link and we'll analyze it, or fill in the details yourself.</p>
+<label for="url">Website or Facebook page URL</label><div class="row"><input id="url" placeholder="https://"><button class="btn p" id="ana" style="white-space:nowrap">Analyze</button></div><div id="anaOut" class="s" style="margin-top:10px"></div>
+<label for="brand">Brand name</label><input id="brand" data-k="brand"><label>Business type</label><div class="chips" data-g="ntype"><button class="chip" data-v="E-commerce">E-commerce</button><button class="chip" data-v="F-commerce">F-commerce</button><button class="chip" data-v="Service">Service</button><button class="chip" data-v="Digital product">Digital product</button></div>
+<label for="niche">What do you sell? (niche)</label><input id="niche" data-k="niche"></section>
+<section class="pane" id="p1"><h2>Product and pricing</h2><p class="s">Tell us what you sell and at what price.</p>
+<label for="prod">Product name</label><input id="prod" data-k="prod"><div class="g2"><div><label for="price">Price (BDT)</label><input id="price" data-k="price" type="number"></div><div><label for="offer">Special offer or discount</label><input id="offer" data-k="offer"></div></div>
+<label for="usp">Unique selling point</label><input id="usp" data-k="usp"><label for="desc">Product description</label><textarea id="desc" data-k="desc"></textarea></section>
+<section class="pane" id="p2"><h2>Audience psychology</h2><p class="s">The more specific you are, the sharper the ad.</p>
+<label for="aud">Target audience</label><select id="aud" data-k="aud"><option>Gen Z (18–24)</option><option>Young adults (25–34)</option><option>Parents</option><option>Small business owners</option><option>Professionals (35+)</option></select>
+<label>Where in Bangladesh?</label><div class="chips" data-g="geo"><button class="chip" data-v="Dhaka">Dhaka</button><button class="chip" data-v="Chattogram">Chattogram</button><button class="chip" data-v="Sylhet">Sylhet</button><button class="chip" data-v="Rajshahi">Rajshahi</button><button class="chip" data-v="Khulna">Khulna</button><button class="chip" data-v="All Bangladesh">All Bangladesh</button></div>
+<label for="pains">Customer pain points</label><textarea id="pains" data-k="pains" style="min-height:80px"></textarea><label for="desires">What do they want most?</label><textarea id="desires" data-k="desires" style="min-height:80px"></textarea></section>
+<section class="pane" id="p3"><h2>Ad angle and tone</h2><p class="s">Choose how the ad should sound.</p>
+<label>Ad angle</label><div class="chips" data-g="angle"><button class="chip" data-v="Emotional story">Emotional story</button><button class="chip" data-v="Direct discount">Direct discount</button><button class="chip" data-v="Problem-solving">Problem-solving</button><button class="chip" data-v="Urgency / FOMO">Urgency / FOMO</button></div><label>Tone</label><div class="chips" data-g="tone"><button class="chip" data-v="Casual">Casual</button><button class="chip" data-v="Formal">Formal</button></div><label>Ad language</label><div class="chips" data-g="cl"><button class="chip" data-v="bn">Bangla</button><button class="chip" data-v="en">English</button></div></section>
+<section class="pane" id="p4"><h2>Ad copy and hook</h2><p class="s">Choose the hook that opens your ad. Each comes in English and Bengali.</p><div id="hooks"></div><div class="row" style="justify-content:flex-start;flex-wrap:wrap"><button class="btn" id="regen">Shuffle hooks</button><button class="btn p" id="aiCopy">Write copy with AI</button></div><div id="adv" class="glass" style="margin-top:14px;display:none"></div><button class="btn" id="chk" style="margin-top:12px">Check ad health</button><div id="hs"></div></section>
+<section class="pane" id="p5"><h2>Video prompt and settings</h2><p class="s">Edit the prompt, then check the cost before you generate.</p>
+<label for="prompt">Cinematic prompt</label><textarea id="prompt" data-k="prompt"></textarea>
+<label>Aspect ratio</label><div class="chips" data-g="ratio"><button class="chip" data-v="9:16">9:16</button><button class="chip" data-v="1:1">1:1</button><button class="chip" data-v="16:9">16:9</button></div>
+<label>Duration</label><div class="chips" data-g="dur"><button class="chip" data-v="5">5 s</button><button class="chip" data-v="10">10 s</button><button class="chip" data-v="15">15 s</button></div>
+<label>Quality</label><div class="chips" data-g="q"><button class="chip" data-v="720p">720p</button><button class="chip" data-v="1080p">1080p</button><button class="chip" data-v="4K">4K</button></div>
+<div class="glass cost"><div class="big"><span id="c1"></span><span class="m" id="c2"></span></div><table id="brk"></table></div>
+<div id="out" style="margin-top:16px"></div></section>
+<div class="nav"><button class="btn" id="back">Back</button><button class="btn p" id="next">Next</button></div></div></div></div>
+<div class="modal" id="mod"><div class="glass"><div class="row"><h2>Settings</h2><button class="btn" id="x">Close</button></div>
+<label for="key">Higgsfield API key (stored in this browser only)</label><input id="key" type="password" autocomplete="off" placeholder="Paste key">
+<label for="base">Video API base URL (default: your /api/higgsfield proxy)</label><input id="base">
+<div class="g2"><div><label for="fx">1 USD in BDT</label><input id="fx" type="number" step="0.5"></div><div><label for="cpc">Price per credit (USD)</label><input id="cpc" type="number" step="0.01"></div></div>
+<div class="g2"><div><label for="dq">Default quality</label><select id="dq"><option>720p</option><option>1080p</option><option>4K</option></select></div><div><label for="to">Request timeout (s)</label><input id="to" type="number"></div></div>
+<label for="mt">Meta access token (needs ads_management)</label><input id="mt" type="password" autocomplete="off">
+<div class="g2"><div><label for="act">Ad account ID</label><input id="act" placeholder="act_123456789"></div><div><label for="pg">Facebook Page ID</label><input id="pg"></div></div>
+<label for="bud">Daily budget (ad account currency)</label><input id="bud" type="number"><label for="pst">Publish as</label><select id="pst"><option value="PAUSED">Paused draft</option><option value="ACTIVE">Active (starts spending)</option></select>
+<label class="row" style="color:var(--tx)"><span>Demo mode (simulate rendering, no API call)</span><input id="demo" type="checkbox" class="tg"></label>
+<button class="btn p" id="save" style="margin-top:12px">Save settings</button>
+<label>System log</label><div class="log" id="log"></div><button class="btn" id="clr" style="margin-top:8px">Clear log</button></div></div>
+<div class="modal" id="dm"><div class="glass"><div class="row"><h2 id="dt" style="margin:0"></h2><button class="btn" id="dx">Close</button></div><div id="db"></div><button class="btn" id="ddel" style="margin-top:16px">Delete</button></div></div>
+<div id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],sleep=t=>new Promise(r=>setTimeout(r,t));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ld=(k,f)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??f}catch(e){return f}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let cfg={key:'',base:'/api/higgsfield',mtoken:'',act:'',page:'',bud:500,pst:'PAUSED',lang:'bn',demo:true,fx:119,cpc:.05,q:'1080p',to:30,cur:'USD',...ld('asp_cfg',{})};
+let logs=ld('asp_log',[]),step=0,shuf=0,touched=false;
+const d={brand:'',niche:'',desc:'',usp:'',aud:'Gen Z (18–24)',plat:'Facebook',ntype:'E-commerce',prod:'',price:'',offer:'',pains:'',desires:'',geo:'Dhaka',angle:'Problem-solving',tone:'Casual',cl:'bn',ad:null,hook:null,prompt:'',ratio:'9:16',dur:'5',q:cfg.q};
+const BN={'Settings':'সেটিংস','Dashboard':'ড্যাশবোর্ড','Sign out':'সাইন আউট','Welcome to AdSpark Pro':'AdSpark Pro-তে স্বাগতম','Sign in to see your ads, costs and health scores.':'আপনার অ্যাড, খরচ ও হেলথ স্কোর দেখতে সাইন ইন করুন।','Continue with Google':'Google দিয়ে চালিয়ে যান','Your campaigns':'আপনার ক্যাম্পেইন','New ad':'নতুন অ্যাড','Delete':'মুছুন','Save campaign':'ক্যাম্পেইন সেভ করুন','Check ad health':'অ্যাডের হেলথ দেখুন','Write the ad copy first.':'আগে বিজ্ঞাপনের কপি লিখুন।','Checking ad health…':'অ্যাডের হেলথ যাচাই হচ্ছে…','Campaign saved.':'ক্যাম্পেইন সেভ হয়েছে।','Business':'ব্যবসা','Product':'পণ্য','Audience':'দর্শক','Angle':'অ্যাঙ্গেল','Copy':'কপি','Video':'ভিডিও','Back':'পিছনে','Next':'পরবর্তী','Analyze':'বিশ্লেষণ করুন','Shuffle hooks':'হুক বদলান','Write copy with AI':'AI দিয়ে কপি লিখুন','Generate video':'ভিডিও তৈরি করুন','Publish to Facebook Ads':'ফেসবুক অ্যাডসে পাবলিশ করুন','Close':'বন্ধ করুন','Save settings':'সেটিংস সেভ করুন','Clear log':'লগ মুছুন',
+'Business and link':'ব্যবসা ও লিংক',"Paste your website or Facebook page link and we'll analyze it, or fill in the details yourself.":'আপনার ওয়েবসাইট বা ফেসবুক পেজের লিংক দিন, আমরা বিশ্লেষণ করব। অথবা নিজেই তথ্য দিন।','Website or Facebook page URL':'ওয়েবসাইট বা ফেসবুক পেজের লিংক','Brand name':'ব্র্যান্ডের নাম','Business type':'ব্যবসার ধরন','What do you sell? (niche)':'আপনি কী বিক্রি করেন? (নিশ)','E-commerce':'ই-কমার্স','F-commerce':'এফ-কমার্স','Service':'সার্ভিস','Digital product':'ডিজিটাল পণ্য',
+'Product and pricing':'পণ্য ও মূল্য','Tell us what you sell and at what price.':'কী বিক্রি করছেন এবং কত দামে, জানান।','Product name':'পণ্যের নাম','Price (BDT)':'দাম (টাকা)','Special offer or discount':'বিশেষ অফার বা ডিসকাউন্ট','Unique selling point':'আপনার সুবিধা (USP)','Product description':'পণ্যের বিবরণ',
+'Audience psychology':'ক্রেতার মনস্তত্ত্ব','The more specific you are, the sharper the ad.':'যত নির্দিষ্ট তথ্য দেবেন, বিজ্ঞাপন তত ধারালো হবে।','Target audience':'টার্গেট ক্রেতা','Where in Bangladesh?':'বাংলাদেশের কোথায়?','Customer pain points':'ক্রেতার সমস্যা','What do they want most?':'ক্রেতা সবচেয়ে কী চায়?','Gen Z (18–24)':'জেন জি (১৮–২৪)','Young adults (25–34)':'তরুণ (২৫–৩৪)','Parents':'অভিভাবক','Small business owners':'ছোট ব্যবসায়ী','Professionals (35+)':'পেশাজীবী (৩৫+)','Dhaka':'ঢাকা','Chattogram':'চট্টগ্রাম','Sylhet':'সিলেট','Rajshahi':'রাজশাহী','Khulna':'খুলনা','All Bangladesh':'সারা বাংলাদেশ',
+'Ad angle and tone':'অ্যাঙ্গেল ও টোন','Choose how the ad should sound.':'বিজ্ঞাপনটি কেমন শোনাবে বেছে নিন।','Ad angle':'বিজ্ঞাপনের অ্যাঙ্গেল','Emotional story':'আবেগঘন গল্প','Direct discount':'সরাসরি ডিসকাউন্ট','Problem-solving':'সমস্যার সমাধান','Urgency / FOMO':'তাড়া / FOMO','Tone':'টোন','Casual':'কথ্য','Formal':'আনুষ্ঠানিক','Ad language':'বিজ্ঞাপনের ভাষা','Bangla':'বাংলা',
+'Ad copy and hook':'বিজ্ঞাপনের কপি ও হুক','Choose the hook that opens your ad. Each comes in English and Bengali.':'বিজ্ঞাপনের শুরুর হুক বেছে নিন। প্রতিটি বাংলা ও ইংরেজিতে আছে।','Video prompt and settings':'ভিডিও প্রম্পট ও সেটিংস','Edit the prompt, then check the cost before you generate.':'প্রম্পট ঠিক করুন, তৈরির আগে খরচ দেখে নিন।','Cinematic prompt':'সিনেমাটিক প্রম্পট','Aspect ratio':'অ্যাসপেক্ট রেশিও','Duration':'সময়','Quality':'কোয়ালিটি',
+'Higgsfield API key (stored in this browser only)':'Higgsfield API কী (শুধু এই ব্রাউজারে থাকে)','Video API base URL (default: your /api/higgsfield proxy)':'ভিডিও API বেস URL','1 USD in BDT':'১ ডলার = কত টাকা','Price per credit (USD)':'প্রতি ক্রেডিটের দাম (ডলার)','Default quality':'ডিফল্ট কোয়ালিটি','Request timeout (s)':'টাইমআউট (সেকেন্ড)','Demo mode (simulate rendering, no API call)':'ডেমো মোড (সিমুলেশন, API কল নেই)','Meta access token (needs ads_management)':'Meta অ্যাক্সেস টোকেন (ads_management লাগবে)','Ad account ID':'অ্যাড অ্যাকাউন্ট আইডি','Facebook Page ID':'ফেসবুক পেজ আইডি','Daily budget (ad account currency)':'দৈনিক বাজেট (অ্যাকাউন্টের মুদ্রায়)','Publish as':'পাবলিশ হবে','Paused draft':'পজড ড্রাফট','Active (starts spending)':'চালু (খরচ শুরু হবে)','System log':'সিস্টেম লগ',
+'Enter a brand name to continue.':'চালিয়ে যেতে ব্র্যান্ডের নাম দিন।','Paste a website URL first.':'আগে একটি লিংক দিন।','Add your API key in Settings, or turn on demo mode.':'সেটিংসে API কী দিন, অথবা ডেমো মোড চালু করুন।','Add your Meta token, ad account and Page in Settings.':'সেটিংসে Meta টোকেন, অ্যাড অ্যাকাউন্ট ও পেজ দিন।','Analyze a website first so the ad has a destination link.':'আগে লিংক বিশ্লেষণ করুন, যাতে বিজ্ঞাপনে গন্তব্য লিংক থাকে।','Settings saved.':'সেটিংস সেভ হয়েছে।','Link copied.':'লিংক কপি হয়েছে।','Analyzing prompt…':'প্রম্পট বিশ্লেষণ হচ্ছে…','Rendering video with Higgsfield AI…':'Higgsfield AI দিয়ে ভিডিও রেন্ডার হচ্ছে…','Finalizing…':'চূড়ান্ত করা হচ্ছে…','Writing your ad copy…':'বিজ্ঞাপনের কপি লেখা হচ্ছে…','AI copy needs the deployed server. Using template hooks.':'AI কপির জন্য ডিপ্লয় করা সার্ভার লাগবে। আপাতত টেমপ্লেট হুক দেখানো হচ্ছে।','Invalid API key. Check it in Settings.':'API কী সঠিক নয়। সেটিংসে দেখুন।','Creating campaign, ad set and ad…':'ক্যাম্পেইন, অ্যাড সেট ও অ্যাড তৈরি হচ্ছে…','Create this campaign and start spending right away?':'এই ক্যাম্পেইন তৈরি করে এখনই খরচ শুরু করবেন?','Create this campaign as a paused draft?':'এই ক্যাম্পেইন পজড ড্রাফট হিসেবে তৈরি করবেন?','Created and active. Campaign':'তৈরি হয়েছে ও চালু আছে। ক্যাম্পেইন','Created as a paused draft. Review it in Ads Manager. Campaign':'পজড ড্রাফট হিসেবে তৈরি হয়েছে। Ads Manager-এ দেখে নিন। ক্যাম্পেইন'};
+const L=s=>cfg.lang==='bn'&&BN[s]||s;
+function applyLang(){document.documentElement.lang=cfg.lang;const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),skip='#steps,#hooks,#brk,#out,#pubm,#anaOut,#adv,#hs,#cards,#list,#db,#dt,#lerr,#log,#toast,#c1,#c2,script,style';let n;
+while(n=w.nextNode()){if(n.parentElement.closest(skip))continue;const t=n.nodeValue.trim();if(!t)continue;n.__e=n.__e||t;n.nodeValue=n.nodeValue.replace(t,L(n.__e))}}
+function setLang(l){cfg.lang=l;sv('asp_cfg',cfg);applyLang();$$('#lng button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));go(step);showAna();drawAd();drawCost();drawDash();drawHs()}
+const NAMES=['Business','Product','Audience','Angle','Copy','Video'],RATE={'720p':2,'1080p':3,'4K':6};
+const toast=m=>{const t=$('#toast');t.textContent=L(m);t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2800)};
+const log=(t,m)=>{logs.unshift({t:new Date().toLocaleTimeString(),k:t,m});logs=logs.slice(0,50);sv('asp_log',logs);drawLog()};
+const drawLog=()=>$('#log').innerHTML=logs.length?logs.map(l=>`<div><b class="${l.k==='error'?'e':''}">${l.k}</b> ${l.t} — ${esc(l.m)}</div>`).join(''):'No events yet.';
+/* Cost engine */
+function cost(){const s=+d.dur,r=RATE[d.q],pc=Math.ceil(d.prompt.length/150),cr=s*r+pc,usd=cr*cfg.cpc;return{s,r,pc,cr,usd,bdt:usd*cfg.fx}}
+const money=(v,c)=>c==='USD'?'$'+v.toFixed(2):'৳'+Math.round(v).toLocaleString('en-US');
+function drawCost(){const c=cost(),p=cfg.cur,o=p==='USD'?'BDT':'USD',b=cfg.lang==='bn';
+$('#c1').textContent=money(c[p.toLowerCase()],p);$('#c2').textContent='≈ '+money(c[o.toLowerCase()],o);
+$('#brk').innerHTML=`<tr><td>${b?`রেন্ডার: ${c.s} সেকেন্ড × ${c.r} ক্রেডিট (${d.q})`:`Render: ${c.s}s × ${c.r} credits/s (${d.q})`}</td><td>${c.s*c.r} cr</td></tr><tr><td>${b?`প্রম্পট প্রসেসিং (${d.prompt.length} অক্ষর)`:`Prompt processing (${d.prompt.length} chars)`}</td><td>${c.pc} cr</td></tr><tr><td><b>${b?'মোট':'Total'}</b></td><td><b>${c.cr} ${b?'ক্রেডিট':'credits'}</b></td></tr><tr><td>${b?'রেট':'Rate'}</td><td>${cfg.cpc} USD/credit · 1 USD = ${cfg.fx} BDT</td></tr>`;
+$$('#cur button').forEach(b=>b.classList.toggle('on',b.dataset.c===p))}
+/* Copy generator (template-based, EN + BN) */
+function hooks(){if(d.ai&&d.ai.hooks&&d.ai.hooks.length>2){const h=d.ai.hooks.map(x=>[x.en,x.bn]);return[0,1,2].map(i=>h[(i+shuf*3)%h.length])}const b=d.brand||'Your brand',n=d.niche||'everyday life',u=d.usp||'quality you can feel',a=d.aud.replace(/ \(.*/,'').toLowerCase();
+const all=[[`Still struggling with ${n}? Meet ${b}.`,`${n} নিয়ে এখনো ঝামেলায়? পরিচিত হোন ${b}-এর সাথে।`],[`${u} — that's why ${a} choose ${b}.`,`${u} — তাই ${b} বেছে নেন অনেকেই।`],[`Stop scrolling. ${b} changes ${n} today.`,`স্ক্রল থামান। ${b} আজই বদলে দেবে আপনার ${n}।`],[`What if ${n} felt effortless? ${b} makes it real.`,`${n} যদি হতো সহজ? ${b} সেটাই সত্যি করে।`],[`One try, and you'll see why ${b} wins.`,`একবার ব্যবহার করলেই বুঝবেন কেন ${b} সেরা।`]];
+return[0,1,2].map(i=>all[(i+shuf*2)%5])}
+function drawHooks(){$('#hooks').innerHTML=hooks().map((h,i)=>`<button class="glass hook ${d.hook&&d.hook[0]===h[0]?'on':''}" data-i="${i}">${esc(h[cfg.lang==='bn'?1:0])}<small>${esc(h[cfg.lang==='bn'?0:1])}</small></button>`).join('');
+const hs=hooks();$$('.hook').forEach(el=>el.onclick=()=>{d.hook=hs[+el.dataset.i];d.score=null;d.audit=null;drawHs();touched||(d.prompt='');drawHooks()})}
+function autoPrompt(){if(touched&&d.prompt)return;d.prompt=`Cinematic ${d.plat} ad for ${d.brand} (${d.niche}). Opening line: "${d.hook?d.hook[0]:d.brand}". Key benefit: ${d.usp}. Smooth camera moves, soft studio lighting, vibrant color grade, product close-ups, ends on the brand logo.`;$('#prompt').value=d.prompt}
+/* Wizard */
+function go(n){step=Math.max(0,Math.min(5,n));$$('.pane').forEach((p,i)=>p.classList.toggle('on',i===step));
+$('#steps').innerHTML=NAMES.map((t,i)=>`<div class="st ${i===step?'on':i<step?'done':''}">${i<step?'✓ ':''}${L(t)}</div>`).join('');
+$('#prog').style.width=(step+1)*100/6+'%';$('#back').disabled=step===0;$('#next').style.display=step===5?'none':'';
+if(step===4){drawHooks();drawAd()}if(step===5){autoPrompt();drawCost()}}
+function sync(){$$('[data-k]').forEach(e=>e.value=d[e.dataset.k]);$$('[data-g]').forEach(g=>[...g.children].forEach(b=>b.classList.toggle('on',b.dataset.v===String(d[g.dataset.g]))))}
+$$('[data-k]').forEach(e=>e.oninput=()=>{d[e.dataset.k]=e.value;if(e.id==='prompt'){touched=true;drawCost()}});
+$$('[data-g]').forEach(g=>g.onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const k=g.dataset.g;d[k]=b.dataset.v;
+if(k==='plat'){d.ratio=d.plat==='Facebook'?'1:1':'9:16'}sync();drawCost();drawAd()});
+$('#next').onclick=()=>{if(step===0&&!d.brand.trim()){toast('Enter a brand name to continue.');$('#brand').focus();return}go(step+1)};
+$('#back').onclick=()=>go(step-1);$('#regen').onclick=()=>{shuf++;drawHooks()};
+$$('#cur button').forEach(b=>b.onclick=()=>{cfg.cur=b.dataset.c;sv('asp_cfg',cfg);drawCost()});
+/* Higgsfield client */
+const E=m=>new Error(L(m));
+async function api(path,opt={}){const c=new AbortController(),t=setTimeout(()=>c.abort(),cfg.to*1000);
+try{const r=await fetch(cfg.base.replace(/\/$/,'')+path,{...opt,signal:c.signal,headers:{'Content-Type':'application/json',Authorization:'Bearer '+cfg.key}});
+if(r.status===401||r.status===403)throw E('Invalid API key. Check it in Settings.');
+if(r.status===429)throw E('Rate limit reached. Wait '+(r.headers.get('retry-after')||'a minute')+' and try again.');
+if(!r.ok)throw E('Higgsfield returned status '+r.status+'. Try again shortly.');return await r.json()}
+catch(e){if(e.name==='AbortError')throw E('The request timed out after '+cfg.to+'s. Try again.');if(e instanceof TypeError)throw E('Could not reach the API. Check your connection, the base URL, and that the server allows browser (CORS) requests.');throw e}finally{clearTimeout(t)}}
+async function generate(){const out=$('#out'),btn=$('#gen');
+if(!cfg.demo&&!cfg.key){toast('Add your API key in Settings, or turn on demo mode.');openSet();return}
+const ar=d.ratio.split(':'),stat=m=>{$('#st').textContent=L(m);log('status',m)};
+out.innerHTML=`<div class="sk" style="aspect-ratio:${ar[0]}/${ar[1]}"></div><p class="stat" id="st"></p>`;
+try{let url=null;stat('Analyzing prompt…');
+if(cfg.demo){await sleep(1500);stat('Rendering video with Higgsfield AI…');await sleep(3000)}
+else{const j=await api('/generations',{method:'POST',body:JSON.stringify({prompt:d.prompt,aspect_ratio:d.ratio,duration:+d.dur,resolution:d.q})});
+stat('Rendering video with Higgsfield AI…');
+for(let i=0;i<60&&!url;i++){await sleep(3000);const s=await api('/generations/'+j.id);
+if(s.status==='failed')throw E('Higgsfield could not render this prompt. Edit it and try again.');
+if(s.status==='completed')url=s.video_url||s.url}
+if(!url)throw E('Rendering is taking longer than expected. Check your Higgsfield dashboard.')}
+stat('Finalizing…');await sleep(600);log('done',cfg.demo?'Demo render finished':'Video ready');
+d.videoUrl=url;
+out.innerHTML=url?`<video controls playsinline src="${esc(url)}"></video><div class="row" style="justify-content:center;margin-top:12px"><a class="btn" href="${esc(url)}" download target="_blank" rel="noopener">Download</a><button class="btn" id="shr">Share</button></div>`
+:`<div class="demo" style="aspect-ratio:${ar[0]}/${ar[1]}"><div><b>Demo render complete</b><br>${d.dur}s · ${d.ratio} · ${d.q}<br>No video was produced. Turn off demo mode and add a key to render for real.</div></div>`;
+const s=$('#shr');if(s)s.onclick=async()=>{try{navigator.share?await navigator.share({url}):(await navigator.clipboard.writeText(url),toast('Link copied.'))}catch(e){}}
+}catch(e){log('error',e.message);out.innerHTML=`<div class="err">${esc(e.message)}</div><button class="btn p" id="gen">Retry</button>`;$('#gen').onclick=generate;return}}
+$('.cost').insertAdjacentHTML('afterend','<button class="btn p" id="gen" style="width:100%;margin-top:14px">Generate video</button>');$('#gen').onclick=generate;
+/* Settings / admin */
+function openSet(){$('#key').value=cfg.key;$('#base').value=cfg.base;$('#fx').value=cfg.fx;$('#cpc').value=cfg.cpc;$('#dq').value=cfg.q;$('#to').value=cfg.to;$('#demo').checked=cfg.demo;$('#mt').value=cfg.mtoken;$('#act').value=cfg.act;$('#pg').value=cfg.page;$('#bud').value=cfg.bud;$('#pst').value=cfg.pst;drawLog();$('#mod').classList.add('on')}
+$('#setBtn').onclick=openSet;$('#x').onclick=()=>$('#mod').classList.remove('on');
+$('#save').onclick=()=>{cfg={...cfg,key:$('#key').value.trim(),base:$('#base').value.trim(),fx:+$('#fx').value||119,cpc:+$('#cpc').value||.05,q:$('#dq').value,to:+$('#to').value||30,demo:$('#demo').checked,mtoken:$('#mt').value.trim(),act:$('#act').value.trim(),page:$('#pg').value.trim(),bud:+$('#bud').value||500,pst:$('#pst').value};d.q=cfg.q;sv('asp_cfg',cfg);log('settings','Settings saved');sync();drawCost();$('#mod').classList.remove('on');toast('Settings saved.')};
+$('#clr').onclick=()=>{logs=[];sv('asp_log',logs);drawLog()};
+/* Website analysis */
+$('#ana').onclick=async()=>{const u=$('#url').value.trim(),o=$('#anaOut'),b=$('#ana');if(!u){toast('Paste a website URL first.');return}
+b.disabled=true;o.innerHTML='<div class="sk" style="height:56px;max-width:none"></div>';log('analyze',u);
+try{const r=await fetch('/api/analyze',{method:'POST',headers:authH(),body:JSON.stringify({url:u})});const j=await r.json().catch(()=>({}));
+if(!r.ok)throw E(j.error||'Analysis failed with status '+r.status+'.');
+d.ai=j;d.ad=(j.ads||[])[0]||null;d.score=null;d.audit=null;d.landing=u;d.image=j.image||'';['brand','niche','desc','usp'].forEach(k=>{if(j[k])d[k]=j[k]});
+const pr=String(j.price||'').match(/[\d,.]+/);if(pr&&!d.price)d.price=pr[0].replace(/,/g,'');d.pains=((cfg.lang==='bn'&&j.painPoints_bn)||j.painPoints||[]).join(', ');touched=false;shuf=0;sync();showAna();log('analyze','Done')}
+catch(e){o.innerHTML=`<div class="err">${esc(e.message)}</div>`;log('error',e.message)}finally{b.disabled=false}};
+/* Meta publish */
+$('#gen').insertAdjacentHTML('afterend','<button class="btn" id="pub" style="width:100%;margin-top:10px">Publish to Facebook Ads</button><div id="pubm"></div>');
+$('#pub').onclick=async()=>{const m=$('#pubm');if(!cfg.mtoken||!cfg.act||!cfg.page){toast('Add your Meta token, ad account and Page in Settings.');openSet();return}
+if(!d.landing){toast('Analyze a website first so the ad has a destination link.');return}
+if(d.score==null)await audit();if(!confirm(L(cfg.pst==='ACTIVE'?'Create this campaign and start spending right away?':'Create this campaign as a paused draft?')))return;
+const a=d.ad||{},bn=d.cl==='bn',h=d.hook?d.hook[bn?1:0]:'';
+$('#pub').disabled=true;m.innerHTML=`<p class="stat">${L('Creating campaign, ad set and ad…')}</p>`;
+try{const r=await fetch('/api/publish',{method:'POST',headers:authH(),body:JSON.stringify({token:cfg.mtoken,account:cfg.act,page:cfg.page,link:d.landing,image:d.image,video:d.videoUrl||'',budget:cfg.bud,name:d.brand,headline:(bn?a.headline_bn:a.headline_en)||a.headline||d.brand,body:[h,bn?a.body_bn:a.body_en].filter(Boolean).join('\n\n'),cta:a.cta||'SHOP_NOW',active:cfg.pst==='ACTIVE'})});
+const j=await r.json().catch(()=>({}));if(!r.ok)throw E(j.error||'Publish failed with status '+r.status+'.');
+log('publish','Campaign '+j.campaign);await saveCamp(cfg.pst==='ACTIVE'?'active':'paused',{meta:j});m.innerHTML=`<p class="stat" style="color:var(--ok)">${L(cfg.pst==='ACTIVE'?'Created and active. Campaign':'Created as a paused draft. Review it in Ads Manager. Campaign')} ${esc(j.campaign)}</p>`}
+catch(e){log('error',e.message);m.innerHTML=`<div class="err">${esc(e.message)}</div>`}finally{$('#pub').disabled=false}};
+function showAna(){const j=d.ai,o=$('#anaOut');if(!j||!j.audience){o.innerHTML='';return}const bn=cfg.lang==='bn',l=a=>(a||[]).slice(0,3).map(esc).join(' · ');
+o.innerHTML=`<b>${bn?'টার্গেট:':'Audience:'}</b> ${esc((bn&&j.audience_bn)||j.audience)}<br><b>${bn?'সমস্যা:':'Pain points:'}</b> ${l((bn&&j.painPoints_bn)||j.painPoints)}<br><b>${bn?'অ্যাঙ্গেল:':'Angles:'}</b> ${l((bn&&j.angles_bn)||j.angles)}`}
+function drawAd(){const a=d.ad,e=$('#adv');e.style.display=a?'':'none';if(!a)return;const bn=d.cl==='bn';
+e.innerHTML=`<b>${esc((bn?a.headline_bn:a.headline_en)||a.headline||'')}</b><p style="white-space:pre-line;margin:8px 0">${esc((bn?a.body_bn:a.body_en)||'')}</p><small style="color:var(--mut)">${esc(a.urgency||'')}</small>`}
+$$('#lng button').forEach(b=>b.onclick=()=>setLang(b.dataset.l));
+$('#aiCopy').onclick=async()=>{const b=$('#aiCopy');b.disabled=true;toast('Writing your ad copy…');
+try{const r=await fetch('/api/copy',{method:'POST',headers:authH(),body:JSON.stringify({brand:d.brand,ntype:d.ntype,niche:d.niche,product:d.prod,price:d.price,offer:d.offer,usp:d.usp,desc:d.desc,audience:d.aud,geo:d.geo,pains:d.pains,desires:d.desires,angle:d.angle,tone:d.tone,lang:d.cl,url:d.landing||''})});
+const j=await r.json().catch(()=>({}));if(!r.ok)throw E(j.error||'Copy generation failed.');
+d.ai={...(d.ai||{}),hooks:j.hooks,ads:j.ads};d.ad=j.ads[0];d.hook=null;d.score=null;d.audit=null;shuf=0;drawHooks();drawAd();drawHs();log('copy','Done')}
+catch(e){toast(e instanceof TypeError?'AI copy needs the deployed server. Using template hooks.':e.message);log('error',e.message)}finally{b.disabled=false}};
+/* Auth, dashboard, history, health score */
+let sb=null,sess=null,rows=[];
+const authH=()=>({'Content-Type':'application/json',...(sess?{Authorization:'Bearer '+sess.access_token}:{})});
+const scol=s=>s==null?'var(--mut)':s>=80?'var(--ok)':s>=60?'var(--b)':'var(--err)';
+function view(v){['login','dash','wiz'].forEach(x=>$('#'+x).style.display=x===v?'':'none');$('#so').style.display=sess?'':'none';$('#home').style.display=sess&&v==='wiz'?'':'none'}
+function boot(){const C=window.ADSPARK||{};if(!C.SUPABASE_URL||!window.supabase){view('login');const e=$('#lerr');e.style.display='';e.textContent='Add your Supabase URL and anon key in public/config.js.';return}
+sb=supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY);
+sb.auth.onAuthStateChange((_e,s)=>{const had=!!sess;sess=s;if(!s)view('login');else if(!had){view('dash');loadList()}})}
+$('#ein').onclick=async()=>{const {error}=await sb.auth.signInWithPassword({email:$('#le').value.trim(),password:$('#lp').value});if(error){const e=$('#lerr');e.style.display='';e.textContent=error.message}};
+$('#gin').onclick=()=>sb&&sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin}});
+$('#so').onclick=()=>sb.auth.signOut();$('#home').onclick=()=>{view('dash');loadList()};
+$('#newAd').onclick=()=>{Object.assign(d,{brand:'',niche:'',prod:'',price:'',offer:'',usp:'',desc:'',pains:'',desires:'',hook:null,ad:null,ai:null,prompt:'',videoUrl:null,score:null,audit:null,cid:null,meta:null,landing:'',image:''});touched=false;$('#out').innerHTML='';$('#anaOut').innerHTML='';sync();drawHs();drawAd();view('wiz');go(0)};
+async function bal(){const {data}=await sb.from('profiles').select('credits,role').maybeSingle();if(!data)return;$('#bal').style.display='';$('#bal').textContent=(data.role==='super_admin'?'∞':data.credits)+' credits';$('#adm').style.display=data.role==='super_admin'?'':'none'}
+async function loadList(){bal();const {data,error}=await sb.from('campaigns').select('*').order('created_at',{ascending:false});if(error){toast(error.message);return}rows=data;drawDash()}
+function drawDash(){const bn=cfg.lang==='bn',p=cfg.cur,tot=rows.reduce((s,x)=>s+(+x.cost_usd||0),0);
+$('#cards').innerHTML=[[bn?'মোট অ্যাড':'Total ads',rows.length],[bn?'আনুমানিক খরচ':'Estimated cost',money(p==='USD'?tot:tot*cfg.fx,p)],[bn?'ফেসবুকে পাঠানো':'Sent to Facebook',rows.filter(x=>x.status!=='draft').length]].map(c=>`<div class="glass"><small style="color:var(--mut)">${c[0]}</small><div style="font-size:20px;font-weight:700">${c[1]}</div></div>`).join('');
+$('#list').innerHTML=rows.length?rows.map((x,i)=>`<button class="glass item" data-i="${i}"><div class="row"><b>${esc(x.title)}</b><b style="color:${scol(x.score)}">${x.score??'–'}</b></div><small style="color:var(--mut)">${new Date(x.created_at).toLocaleDateString()} · Facebook · ${esc(x.status)}</small></button>`).join(''):`<p class="s">${bn?'এখনো কোনো অ্যাড নেই। "নতুন অ্যাড" চাপুন।':'No ads yet. Press "New ad" to create one.'}</p>`;
+$$('#list .item').forEach(b=>b.onclick=()=>detail(rows[+b.dataset.i]))}
+function detail(x){const bn=cfg.lang==='bn',D=x.data||{},a=D.ad||{},b=D.brief||{},sec=(t,v)=>v?`<h3 style="margin:14px 0 4px;font-size:14px">${t}</h3><div style="white-space:pre-line;font-size:14px;color:var(--mut)">${v}</div>`:'';
+$('#dt').textContent=x.title;
+$('#db').innerHTML=sec(bn?'হুক':'Hook',esc((D.hook||[]).slice().reverse().join('\n')))+sec('বাংলা',esc([a.headline_bn,a.body_bn].filter(Boolean).join('\n\n')))+sec('English',esc([a.headline_en,a.body_en].filter(Boolean).join('\n\n')))
++sec(bn?'টার্গেটিং':'Targeting',esc([b.aud,b.geo,b.angle,b.tone,b.price?'৳'+b.price:''].filter(Boolean).join(' · ')))
++sec(bn?'ভিডিও':'Video',D.video?`<a href="${esc(D.video)}" target="_blank" rel="noopener" style="color:var(--b)">${esc(D.video)}</a>`:esc(bn?'ভিডিও তৈরি হয়নি':'No video generated'))
++sec(bn?'খরচ (আনুমানিক)':'Cost (estimate)',`${x.credits} cr · $${(+x.cost_usd).toFixed(2)} · ৳${Math.round(x.cost_usd*cfg.fx)}`)
++sec(bn?'হেলথ স্কোর':'Health score',x.score!=null?`${x.score}/100`+((D.audit&&D.audit.tips)||[]).map(t=>'\n• '+esc(bn?t.bn:t.en)).join(''):'');
+$('#dm').classList.add('on');$('#ddel').onclick=async()=>{if(!confirm(bn?'এই অ্যাড মুছবেন?':'Delete this ad?'))return;await sb.from('campaigns').delete().eq('id',x.id);$('#dm').classList.remove('on');loadList()}}
+$('#dx').onclick=()=>$('#dm').classList.remove('on');
+async function saveCamp(status,extra={}){if(!sb||!sess)return;if(extra.meta)d.meta=extra.meta;const a=d.ad||{},c=cost();
+const row={title:[d.brand,d.prod||d.niche].filter(Boolean).join(' · ')||'Untitled',status,score:d.score,cost_usd:+c.usd.toFixed(4),credits:c.cr,
+data:{hook:d.hook,ad:a,audit:d.audit,brief:{ntype:d.ntype,niche:d.niche,prod:d.prod,price:d.price,offer:d.offer,usp:d.usp,aud:d.aud,geo:d.geo,pains:d.pains,desires:d.desires,angle:d.angle,tone:d.tone,cl:d.cl},prompt:d.prompt,ratio:d.ratio,dur:d.dur,q:d.q,video:d.videoUrl||null,landing:d.landing||'',meta:d.meta||null}};
+try{const q=d.cid?sb.from('campaigns').update(row).eq('id',d.cid):sb.from('campaigns').insert(row);const {data,error}=await q.select().single();if(error)throw error;d.cid=data.id;toast('Campaign saved.')}catch(e){toast(e.message)}}
+async function audit(){const a=d.ad,h=$('#hs');if(!a){toast('Write the ad copy first.');return}const bn=d.cl==='bn';h.innerHTML=`<p class="stat">${L('Checking ad health…')}</p>`;
+try{const r=await fetch('/api/audit',{method:'POST',headers:authH(),body:JSON.stringify({hook:d.hook?d.hook[bn?1:0]:'',headline:(bn?a.headline_bn:a.headline_en)||a.headline||'',body:bn?a.body_bn:a.body_en,cta:a.cta,offer:d.offer,prompt:d.prompt,lang:d.cl})});
+const j=await r.json().catch(()=>({}));if(!r.ok)throw E(j.error||'Audit failed.');d.audit=j;d.score=j.score;drawHs()}catch(e){h.innerHTML=`<div class="err">${esc(e.message)}</div>`}}
+function drawHs(){const j=d.audit,h=$('#hs');if(!j){h.innerHTML='';return}const bn=cfg.lang==='bn',P=[['hook','স্ক্রল-স্টপার হুক','Hook'],['problem','সমস্যা তুলে ধরা','Problem'],['offer','অফার','Offer'],['cta','কল-টু-অ্যাকশন','CTA']];
+h.innerHTML=`<div class="glass" style="margin-top:12px"><div class="row"><b>${bn?'অ্যাড হেলথ স্কোর':'Ad health score'}</b><b style="font-size:26px;color:${scol(j.score)}">${j.score}/100</b></div>${P.map(p=>`<div class="row" style="margin-top:6px;color:var(--mut);font-size:13px"><span>${p[bn?1:2]}</span><span>${j.parts[p[0]]}/25</span></div>`).join('')}${j.score<70?`<ul style="margin:10px 0 0;padding-left:18px;font-size:13px">${(j.tips||[]).map(t=>`<li>${esc(bn?t.bn:t.en)}</li>`).join('')}</ul>`:''}</div>`}
+$('#chk').onclick=audit;
+$('#pub').insertAdjacentHTML('afterend','<button class="btn" id="sav" style="width:100%;margin-top:10px">Save campaign</button>');
+$('#sav').onclick=async()=>{if(d.score==null&&d.ad)await audit();await saveCamp('draft')};
+setLang(cfg.lang);sync();drawLog();boot();
+</script></body></html>

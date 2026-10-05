@@ -1,0 +1,56 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AdSpark Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="config.js"></script>
+<style>
+:root{--bg:#0b0d12;--c:#161a23;--t:#e8ebf2;--m:#8a93a6;--a:#6c8cff;--ok:#38c172;--err:#ef5b5b}
+*{box-sizing:border-box}body{margin:0 auto;background:var(--bg);color:var(--t);font:14px system-ui,sans-serif;padding:14px;max-width:900px}
+h1{font-size:18px;margin:0}h2{font-size:15px;margin:22px 0 8px}small{color:var(--m)}
+.c{background:var(--c);border-radius:12px;padding:12px;margin-bottom:10px}.r{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.g b{display:block;font-size:20px}
+input{width:100%;padding:10px;margin:0 0 8px;border-radius:8px;border:1px solid #2a3040;background:#0f1218;color:var(--t);font:inherit}
+button{padding:8px 11px;border-radius:8px;border:1px solid #2a3040;background:#1d2230;color:var(--t);font:inherit;cursor:pointer}
+button.p{background:var(--a);border-color:var(--a);color:#fff}button.d{color:var(--err)}
+.r2{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.cr{font-size:22px;font-weight:700;color:var(--ok)}
+.tag{font-size:11px;padding:2px 6px;border-radius:6px;background:#2a3358}.tag.red{background:#5a2323}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}table{width:100%;border-collapse:collapse;font-size:12px}td{padding:6px 4px;border-top:1px solid #222836}
+#t{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#fff;color:#000;padding:10px 16px;border-radius:10px;display:none}
+.err{color:var(--err);margin-top:8px}
+</style></head><body>
+<div id="login" class="c" style="max-width:340px;margin:60px auto"><h1>Super Admin</h1><p><small>Sign in with your admin account.</small></p>
+<input id="le" type="email" placeholder="Email"><input id="lp" type="password" placeholder="Password">
+<div class="r2" style="margin:0"><button class="p" id="ein">Sign in</button><button id="gin">Google</button></div><div id="err" class="err"></div></div>
+<div id="app" style="display:none">
+<div class="r" style="margin-bottom:12px"><h1>AdSpark Admin</h1><div class="r2" style="margin:0"><a href="/"><button>App</button></a><button id="so">Sign out</button></div></div>
+<div class="g" id="st"></div>
+<h2>Create user</h2><div class="c"><div class="f"><input id="cn" placeholder="Name (optional)"><input id="ce" type="email" placeholder="Email"><input id="cp" placeholder="Password (8+ chars)"><input id="cc" type="number" min="0" placeholder="Starting credits"></div><button class="p" id="mk">Create user</button></div>
+<h2>Users</h2><input id="q" placeholder="Search name or email"><div id="ul"></div>
+<h2>Recent credit activity</h2><div class="c" style="overflow-x:auto"><table id="lg"></table></div></div>
+<div id="t"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let sb,tok='',D={users:[],log:[],n:{}};
+const fail=m=>{$('#err').textContent=m};
+if(location.protocol==='file:'||!/^https?:/.test(location.protocol))fail('Open this from your deployed site (https://YOUR-SITE.vercel.app/admin.html), not as a local file.');
+else if(!window.supabase)fail('Could not load Supabase. Check your internet connection.');
+else if(!(window.ADSPARK&&ADSPARK.SUPABASE_URL&&ADSPARK.SUPABASE_ANON_KEY))fail('Fill SUPABASE_URL and SUPABASE_ANON_KEY in public/config.js, then redeploy.');
+else sb=supabase.createClient(ADSPARK.SUPABASE_URL,ADSPARK.SUPABASE_ANON_KEY);
+const toast=m=>{const t=$('#t');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000)};
+async function api(body){const r=await fetch('/api/admin',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+tok},body:JSON.stringify(body)});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'Error '+r.status);return j}
+async function load(){try{D=await api({action:'list'});draw()}catch(e){$('#app').style.display='none';$('#login').style.display='';$('#err').textContent=e.message;if(/admin only/i.test(e.message))sb.auth.signOut()}}
+if(sb)sb.auth.onAuthStateChange((_e,s)=>{tok=s?s.access_token:'';if(s){$('#login').style.display='none';$('#app').style.display='';load()}else{$('#login').style.display='';$('#app').style.display='none'}});
+$('#ein').onclick=async()=>{if(!sb)return;const {error}=await sb.auth.signInWithPassword({email:$('#le').value.trim(),password:$('#lp').value});if(error)$('#err').textContent=error.message};
+$('#gin').onclick=()=>sb&&sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.href}});$('#so').onclick=()=>sb&&sb.auth.signOut();
+function draw(){const q=$('#q').value.toLowerCase(),U=D.users;
+$('#st').innerHTML=[['Users',U.length],['Credits held',U.reduce((s,u)=>s+u.credits,0)],['Blocked',U.filter(u=>u.blocked).length]].map(([a,b])=>`<div class="c"><small>${a}</small><b>${b}</b></div>`).join('');
+$('#ul').innerHTML=U.filter(u=>((u.email||'')+(u.name||'')).toLowerCase().includes(q)).map(u=>{const a=u.role==='super_admin',i=`data-i="${u.id}"`;return `<div class="c"><div class="r"><div><b>${esc(u.name||u.email)}</b>${a?' <span class="tag">admin</span>':''}${u.blocked?' <span class="tag red">blocked</span>':''}<br><small>${esc(u.email)} · ${D.n[u.id]||0} ads</small></div><div class="cr">${u.credits}<small> cr</small></div></div>
+<div class="r2"><button class="p" data-a="add" ${i}>+ Credits</button><button data-a="deduct" ${i}>− Credits</button><button data-a="set" ${i}>Set</button><button data-a="blk" ${i}>${u.blocked?'Unblock':'Block'}</button><button data-a="pw" ${i}>Password</button><button data-a="role" ${i}>${a?'Remove admin':'Make admin'}</button><button class="d" data-a="del" ${i}>Delete</button></div></div>`}).join('')||'<small>No users.</small>';
+$('#lg').innerHTML=D.log.map(l=>`<tr><td>${new Date(l.created_at).toLocaleString()}</td><td>${esc(l.email)}</td><td style="color:${l.delta<0?'var(--err)':'var(--ok)'}">${l.delta>0?'+':''}${l.delta}</td><td>${l.balance}</td><td>${esc(l.note||'')}</td></tr>`).join('')}
+$('#q').oninput=draw;
+$('#mk').onclick=async()=>{try{await api({action:'create',name:$('#cn').value,email:$('#ce').value.trim(),password:$('#cp').value,credits:$('#cc').value});['cn','ce','cp','cc'].forEach(x=>$('#'+x).value='');toast('User created');load()}catch(e){toast(e.message)}};
+$('#ul').onclick=async e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.i,a=b.dataset.a,u=D.users.find(x=>x.id===id);
+try{if(['add','deduct','set'].includes(a)){const n=prompt(`${a==='set'?'Set balance to':a==='add'?'Add credits to':'Deduct credits from'} ${u.email}:`);if(n===null||n==='')return;await api({action:'credit',id,mode:a,amount:n})}
+else if(a==='blk')await api({action:'block',id,blocked:!u.blocked});
+else if(a==='pw'){const p=prompt('New password (8+ chars):');if(!p)return;await api({action:'password',id,password:p})}
+else if(a==='role'){if(!confirm('Change admin access for '+u.email+'?'))return;await api({action:'role',id,role:u.role==='super_admin'?'user':'super_admin'})}
+else if(a==='del'){if(prompt('Type DELETE to remove '+u.email+' and all their ads:')!=='DELETE')return;await api({action:'delete',id})}
+toast('Done');load()}catch(x){toast(x.message)}};
+</script></body></html>
